@@ -1,0 +1,52 @@
+import java.util.Random;
+
+public class Kata15 {
+
+  public static void main(String[] args) {
+    int[][] matrixA = initArray(3, 4);
+    int[][] matrixB = initArray(4, 5);
+    int[][] matrixAB = matrixMultiplication(matrixA, matrixB);
+    displayMatrix(matrixAB);
+  }
+
+  private static void displayMatrix(int[][] m) {
+    for (int i = 0; i < m.length; i++) {
+      System.out.print("[");
+      for (int j = 0; j < m[0].length; j++) {
+        System.out.print(m[i][j] + ", ");
+      }
+      System.out.println("]");
+    }
+  }
+
+  private static int[][] matrixMultiplication(int[][] a, int[][] b) {
+    int row = a.length;
+    int col = b[0].length;
+    int[][] ab = new int[row][col];
+
+    for (int i = 0; i < row; i++) {
+      for (int j = 0; j < col; j++) {
+        ab[i][j] = calculateCell(a, b, i, j);
+      }
+    }
+
+    return ab;
+  }
+
+  private static int calculateCell(int[][] a, int[][] b, int row, int col) {
+    int cellValue = 0;
+    for (int i = 0; i < a[0].length; i++) {
+      cellValue += a[row][i] * b[i][col];
+    }
+    return cellValue;
+  }
+
+  private static int[][] initArray(int row, int col) {
+    int[][] matrix = new int[row][col];
+    Random rand = new Random();
+    for (int i = 0; i < matrix.length; i++)
+      for (int j = 0; j < matrix[0].length; j++)
+        matrix[i][j] = rand.nextInt(100);
+    return matrix;
+  }
+}
